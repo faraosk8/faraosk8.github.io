@@ -22,13 +22,19 @@ const Navbar = () => {
         
         <nav className="hidden md:block">
           <ul className="flex space-x-8">
-            {["Home", "Services", "About", "Testimonials", "Contact"].map((item) => (
-              <li key={item}>
+            {[
+              { en: "Home", pt: "Início" }, 
+              { en: "Services", pt: "Serviços" }, 
+              { en: "About", pt: "Sobre" }, 
+              { en: "Testimonials", pt: "Depoimentos" }, 
+              { en: "Contact", pt: "Contato" }
+            ].map((item) => (
+              <li key={item.pt}>
                 <a 
-                  href={`#${item.toLowerCase()}`} 
+                  href={`#${item.en.toLowerCase()}`} 
                   className="text-sm font-medium text-clinic-charcoal hover:text-clinic-brown transition-colors"
                 >
-                  {item}
+                  {item.pt}
                 </a>
               </li>
             ))}
@@ -36,7 +42,7 @@ const Navbar = () => {
         </nav>
         
         <a href="#contact" className="btn-secondary text-sm hidden md:inline-block">
-          Book Appointment
+          Agendar Consulta
         </a>
         
         <button className="md:hidden p-2">

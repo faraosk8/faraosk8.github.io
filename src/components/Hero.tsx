@@ -38,16 +38,16 @@ const Hero = () => {
       
       <div className="container mx-auto relative z-10 flex flex-col md:flex-row items-center">
         <div className="md:w-1/2 md:pr-12 mb-12 md:mb-0">
-          <span className="inline-block text-sm uppercase tracking-wider mb-2 text-clinic-brown animate-on-scroll opacity-0">The Art of Confidence</span>
+          <span className="inline-block text-sm uppercase tracking-wider mb-2 text-clinic-brown animate-on-scroll opacity-0">A Arte da Confiança</span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium leading-tight mb-6 animate-on-scroll opacity-0">
-            Beauty that speaks <br />beyond appearance
+            Beleza que fala <br />além da aparência
           </h1>
           <p className="text-lg text-clinic-charcoal/80 mb-8 max-w-lg animate-on-scroll opacity-0">
-            Experience transformative aesthetic treatments that enhance your natural beauty with our expert clinicians and state-of-the-art technology.
+            Experimente tratamentos estéticos transformadores que realçam sua beleza natural com nossos especialistas e tecnologia de ponta.
           </p>
           <div className="flex flex-wrap gap-4 animate-on-scroll opacity-0">
-            <a href="#services" className="btn-primary">Explore Services</a>
-            <a href="#contact" className="btn-secondary">Book Consultation</a>
+            <a href="#services" className="btn-primary">Explorar Serviços</a>
+            <a href="#contact" className="btn-secondary">Agendar Consulta</a>
           </div>
         </div>
         
@@ -57,17 +57,17 @@ const Hero = () => {
             <div className="image-wrapper animate-on-scroll opacity-0">
               <img 
                 src="https://images.unsplash.com/photo-1603751901434-d1e77b227e4e?q=80&w=2070&auto=format&fit=crop" 
-                alt="Woman receiving facial treatment"
+                alt="Mulher recebendo tratamento facial"
                 className="w-full h-auto object-cover rounded-lg image-hover"
               />
             </div>
             <div className="glass-panel p-4 md:p-6 rounded-lg absolute -bottom-8 -right-8 max-w-xs animate-on-scroll opacity-0">
               <div className="flex items-center space-x-3 mb-3">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <p className="font-medium text-sm">Now Accepting New Clients</p>
+                <p className="font-medium text-sm">Aceitando Novos Clientes</p>
               </div>
               <p className="text-sm text-clinic-charcoal/80">
-                Schedule your complimentary consultation today and begin your journey to confidence.
+                Agende sua consulta gratuita hoje e comece sua jornada para a autoconfiança.
               </p>
             </div>
           </div>

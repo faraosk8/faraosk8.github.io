@@ -10,8 +10,8 @@ const benefits = [
         <path d="M12 8H12.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
-    title: "Expert Consultation",
-    description: "Personalized assessment and treatment plan tailored to your unique needs and aesthetic goals."
+    title: "Consulta Especializada",
+    description: "Avaliação personalizada e plano de tratamento adaptado às suas necessidades específicas e objetivos estéticos."
   },
   {
     icon: (
@@ -19,8 +19,8 @@ const benefits = [
         <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
-    title: "Advanced Technology",
-    description: "Cutting-edge equipment and techniques that deliver superior results with minimal downtime."
+    title: "Tecnologia Avançada",
+    description: "Equipamentos e técnicas de ponta que oferecem resultados superiores com tempo mínimo de recuperação."
   },
   {
     icon: (
@@ -29,8 +29,8 @@ const benefits = [
         <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
-    title: "Premium Products",
-    description: "Medical-grade skincare and treatments using only the highest quality ingredients and solutions."
+    title: "Produtos Premium",
+    description: "Produtos para cuidados com a pele de grau médico e tratamentos usando apenas ingredientes e soluções da mais alta qualidade."
   },
   {
     icon: (
@@ -41,8 +41,8 @@ const benefits = [
         <path d="M15 9H15.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
-    title: "Client Satisfaction",
-    description: "Our priority is your comfort and happiness with natural-looking, beautiful results you'll love."
+    title: "Satisfação do Cliente",
+    description: "Nossa prioridade é seu conforto e felicidade com resultados naturais e bonitos que você vai amar."
   }
 ];
 
@@ -73,10 +73,10 @@ const Benefits = () => {
     <section id="about" ref={sectionRef} className="section-padding bg-white relative">
       <div className="container mx-auto">
         <div className="text-center mb-16 max-w-2xl mx-auto animate-on-scroll opacity-0">
-          <span className="text-sm uppercase tracking-wider mb-2 text-clinic-brown inline-block">Why Choose Us</span>
-          <h2 className="text-3xl md:text-4xl font-serif mb-4">The Benefits of Our Approach</h2>
+          <span className="text-sm uppercase tracking-wider mb-2 text-clinic-brown inline-block">Por Que Nos Escolher</span>
+          <h2 className="text-3xl md:text-4xl font-serif mb-4">Os Benefícios da Nossa Abordagem</h2>
           <p className="text-clinic-charcoal/80">
-            Our philosophy combines medical expertise with aesthetic artistry to deliver exceptional, natural-looking results.
+            Nossa filosofia combina expertise médica com arte estética para proporcionar resultados excepcionais e de aparência natural.
           </p>
         </div>
         
@@ -102,7 +102,7 @@ const Benefits = () => {
               <div className="image-wrapper h-80">
                 <img 
                   src="https://images.unsplash.com/photo-1629909615184-74f495363b67?q=80&w=2069&auto=format&fit=crop" 
-                  alt="Our clinic interior"
+                  alt="Interior da nossa clínica"
                   className="w-full h-full object-cover image-hover"
                 />
               </div>
@@ -110,14 +110,14 @@ const Benefits = () => {
           </div>
           
           <div className="md:w-1/2">
-            <h3 className="text-2xl font-serif mb-4">Our Commitment to Excellence</h3>
+            <h3 className="text-2xl font-serif mb-4">Nosso Compromisso com a Excelência</h3>
             <p className="text-clinic-charcoal/80 mb-4">
-              At our clinic, we believe aesthetic treatments should enhance your natural beauty and boost your confidence. Our team of certified professionals is committed to delivering personalized care with exceptional results.
+              Em nossa clínica, acreditamos que os tratamentos estéticos devem realçar sua beleza natural e aumentar sua confiança. Nossa equipe de profissionais certificados está comprometida em oferecer atendimento personalizado com resultados excepcionais.
             </p>
             <p className="text-clinic-charcoal/80 mb-6">
-              We stay at the forefront of aesthetic innovations, investing in continuous education and the latest technologies to offer you the most effective solutions.
+              Estamos na vanguarda das inovações estéticas, investindo em educação contínua e nas mais recentes tecnologias para oferecer as soluções mais eficazes.
             </p>
-            <a href="#contact" className="btn-primary">Schedule a Consultation</a>
+            <a href="#contact" className="btn-primary">Agendar uma Consulta</a>
           </div>
         </div>
       </div>

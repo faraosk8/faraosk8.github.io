@@ -4,24 +4,24 @@ import { useEffect, useRef } from "react";
 const services = [
   {
     id: 1,
-    title: "Facial Treatments",
-    description: "Personalized facial therapies targeting specific skin concerns with premium products and advanced techniques.",
+    title: "Tratamentos Faciais",
+    description: "Terapias faciais personalizadas direcionadas a preocupações específicas da pele com produtos premium e técnicas avançadas.",
     image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop",
-    features: ["Deep Cleansing", "Anti-Aging", "Hydration", "Acne Treatment"]
+    features: ["Limpeza Profunda", "Anti-Envelhecimento", "Hidratação", "Tratamento para Acne"]
   },
   {
     id: 2,
-    title: "Hair Restoration",
-    description: "Cutting-edge solutions for hair loss using the latest regenerative therapies and personalized care plans.",
+    title: "Restauração Capilar",
+    description: "Soluções de ponta para queda de cabelo usando as mais recentes terapias regenerativas e planos de cuidados personalizados.",
     image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b5?q=80&w=2070&auto=format&fit=crop",
-    features: ["PRP Therapy", "Laser Treatment", "Microneedling", "Hair Transplant"]
+    features: ["Terapia PRP", "Tratamento a Laser", "Microagulhamento", "Transplante Capilar"]
   },
   {
     id: 3,
-    title: "Skin Rejuvenation",
-    description: "Non-invasive procedures that restore youthful appearance and improve skin texture and tone.",
+    title: "Rejuvenescimento da Pele",
+    description: "Procedimentos não invasivos que restauram a aparência jovem e melhoram a textura e tom da pele.",
     image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070&auto=format&fit=crop",
-    features: ["Chemical Peels", "Microdermabrasion", "Laser Therapy", "LED Light Treatment"]
+    features: ["Peelings Químicos", "Microdermoabrasão", "Terapia a Laser", "Tratamento com LED"]
   }
 ];
 
@@ -53,10 +53,10 @@ const Services = () => {
       <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-clinic-cream to-transparent"></div>
       <div className="container mx-auto relative z-10">
         <div className="text-center mb-16 max-w-2xl mx-auto animate-on-scroll opacity-0">
-          <span className="text-sm uppercase tracking-wider mb-2 text-clinic-brown inline-block">Our Expertise</span>
-          <h2 className="text-3xl md:text-4xl font-serif mb-4">Personalized Aesthetic Treatments</h2>
+          <span className="text-sm uppercase tracking-wider mb-2 text-clinic-brown inline-block">Nossa Especialidade</span>
+          <h2 className="text-3xl md:text-4xl font-serif mb-4">Tratamentos Estéticos Personalizados</h2>
           <p className="text-clinic-charcoal/80">
-            We offer a comprehensive range of face and hair treatments using the latest medical technology and premium products.
+            Oferecemos uma ampla gama de tratamentos faciais e capilares utilizando a mais recente tecnologia médica e produtos de alta qualidade.
           </p>
         </div>
         
@@ -90,7 +90,7 @@ const Services = () => {
                   </div>
                 </div>
                 <a href="#contact" className="text-clinic-charcoal font-medium text-sm inline-flex items-center group">
-                  Learn More
+                  Saiba Mais
                   <svg 
                     className="ml-1 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
                     viewBox="0 0 24 24" 

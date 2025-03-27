@@ -7,7 +7,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-serif mb-4">AURA</h3>
             <p className="text-sm text-clinic-charcoal/70 mb-4">
-              Premium aesthetic treatments for face and hair, delivered with expertise and care.
+              Tratamentos estéticos premium para face e cabelo, entregues com expertise e cuidado.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-clinic-charcoal hover:text-clinic-brown transition-colors">
@@ -29,41 +29,41 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-medium mb-4">Services</h4>
+            <h4 className="font-medium mb-4">Serviços</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#services" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Facial Treatments</a></li>
-              <li><a href="#services" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Hair Restoration</a></li>
-              <li><a href="#services" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Skin Rejuvenation</a></li>
-              <li><a href="#services" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Anti-Aging Solutions</a></li>
+              <li><a href="#services" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Tratamentos Faciais</a></li>
+              <li><a href="#services" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Restauração Capilar</a></li>
+              <li><a href="#services" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Rejuvenescimento da Pele</a></li>
+              <li><a href="#services" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Soluções Anti-Envelhecimento</a></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="font-medium mb-4">About</h4>
+            <h4 className="font-medium mb-4">Sobre</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#about" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Our Approach</a></li>
-              <li><a href="#about" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Team</a></li>
-              <li><a href="#testimonials" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Testimonials</a></li>
+              <li><a href="#about" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Nossa Abordagem</a></li>
+              <li><a href="#about" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Equipe</a></li>
+              <li><a href="#testimonials" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Depoimentos</a></li>
               <li><a href="#" className="text-clinic-charcoal/70 hover:text-clinic-brown transition-colors">Blog</a></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="font-medium mb-4">Contact</h4>
+            <h4 className="font-medium mb-4">Contato</h4>
             <ul className="space-y-2 text-sm">
-              <li className="text-clinic-charcoal/70">123 Beauty Lane, Suite 200</li>
-              <li className="text-clinic-charcoal/70">Los Angeles, CA 90210</li>
-              <li className="text-clinic-charcoal/70">info@auraclinic.com</li>
-              <li className="text-clinic-charcoal/70">(555) 123-4567</li>
+              <li className="text-clinic-charcoal/70">Rua da Beleza, 200, Sala 200</li>
+              <li className="text-clinic-charcoal/70">São Paulo, SP 01234-567</li>
+              <li className="text-clinic-charcoal/70">contato@auraclinica.com</li>
+              <li className="text-clinic-charcoal/70">(11) 5555-1234</li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-clinic-beige pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-clinic-charcoal/60">
-          <p>&copy; {new Date().getFullYear()} AURA Aesthetic Clinic. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} AURA Clínica Estética. Todos os direitos reservados.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-clinic-brown transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-clinic-brown transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-clinic-brown transition-colors">Política de Privacidade</a>
+            <a href="#" className="hover:text-clinic-brown transition-colors">Termos de Serviço</a>
           </div>
         </div>
       </div>

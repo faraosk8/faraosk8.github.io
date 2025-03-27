@@ -5,33 +5,33 @@ const testimonials = [
   {
     id: 1,
     name: "Sarah Johnson",
-    role: "Facial Treatment Client",
+    role: "Cliente de Tratamento Facial",
     image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=988&auto=format&fit=crop",
-    quote: "The personalized facial treatment transformed my skin. The attention to detail and care from the staff made my experience exceptional.",
+    quote: "O tratamento facial personalizado transformou minha pele. A atenção aos detalhes e o cuidado da equipe tornaram minha experiência excepcional.",
     rating: 5
   },
   {
     id: 2,
     name: "Michael Chen",
-    role: "Hair Restoration Client",
+    role: "Cliente de Restauração Capilar",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=987&auto=format&fit=crop",
-    quote: "After six months of hair restoration treatments, I've seen remarkable results. The team's expertise and support throughout the process were invaluable.",
+    quote: "Após seis meses de tratamentos de restauração capilar, vi resultados notáveis. A expertise da equipe e o suporte durante todo o processo foram inestimáveis.",
     rating: 5
   },
   {
     id: 3,
     name: "Emma Roberts",
-    role: "Skin Rejuvenation Client",
+    role: "Cliente de Rejuvenescimento da Pele",
     image: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=987&auto=format&fit=crop",
-    quote: "The skin rejuvenation program gave me back my confidence. The results exceeded my expectations, and the process was comfortable and professional.",
+    quote: "O programa de rejuvenescimento da pele me devolveu a confiança. Os resultados superaram minhas expectativas, e o processo foi confortável e profissional.",
     rating: 5
   },
   {
     id: 4,
     name: "David Wilson",
-    role: "Regular Client",
+    role: "Cliente Regular",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=987&auto=format&fit=crop",
-    quote: "I've been coming to this clinic for various treatments for over a year. The consistent quality and results keep me coming back.",
+    quote: "Venho a esta clínica para vários tratamentos há mais de um ano. A qualidade e os resultados consistentes me fazem voltar sempre.",
     rating: 5
   },
 ];
@@ -77,10 +77,10 @@ const Testimonials = () => {
       
       <div className="container mx-auto relative z-10">
         <div className="text-center mb-16 max-w-2xl mx-auto animate-on-scroll opacity-0">
-          <span className="text-sm uppercase tracking-wider mb-2 text-clinic-brown inline-block">Client Stories</span>
-          <h2 className="text-3xl md:text-4xl font-serif mb-4">Real Results, Real Experiences</h2>
+          <span className="text-sm uppercase tracking-wider mb-2 text-clinic-brown inline-block">Histórias de Clientes</span>
+          <h2 className="text-3xl md:text-4xl font-serif mb-4">Resultados Reais, Experiências Reais</h2>
           <p className="text-clinic-charcoal/80">
-            Discover what our clients have to say about their transformative journeys with our treatments.
+            Descubra o que nossos clientes têm a dizer sobre suas jornadas transformadoras com nossos tratamentos.
           </p>
         </div>
         
@@ -125,7 +125,7 @@ const Testimonials = () => {
               <button
                 key={i}
                 onClick={() => setActiveIndex(i)}
-                aria-label={`Go to testimonial ${i + 1}`}
+                aria-label={`Ir para depoimento ${i + 1}`}
                 className={`w-3 h-3 rounded-full mx-1 transition-all duration-300 ${
                   i === activeIndex ? "bg-clinic-charcoal scale-125" : "bg-clinic-charcoal/30"
                 }`}
