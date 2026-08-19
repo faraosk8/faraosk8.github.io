@@ -29,14 +29,17 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        clinic: {
-          cream: "#F8F5F2",
-          beige: "#E8E6E1",
-          sage: "#D1D5DB",
-          rose: "#E0C2C0",
-          brown: "#9C8981",
-          charcoal: "#2D3142",
+        cream: "hsl(var(--cream))",
+        sand: "hsl(var(--sand))",
+        blush: "hsl(var(--blush))",
+        rose: "hsl(var(--rose))",
+        wine: {
+          DEFAULT: "hsl(var(--wine))",
+          deep: "hsl(var(--wine-deep))",
         },
+        espresso: "hsl(var(--espresso))",
+        gold: "hsl(var(--gold))",
+
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))"
@@ -82,9 +85,10 @@ export default {
         sm: "calc(var(--radius) - 4px)"
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['Jost', 'sans-serif'],
+        serif: ['Cormorant Garamond', 'serif'],
       },
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
