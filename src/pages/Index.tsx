@@ -1,42 +1,31 @@
-
-import { useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import Services from "../components/Services";
-import Testimonials from "../components/Testimonials";
-import Benefits from "../components/Benefits";
-import ContactForm from "../components/ContactForm";
-import Footer from "../components/Footer";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import Sinais from "@/components/Sinais";
+import Causas from "@/components/Causas";
+import Tricoscopia from "@/components/Tricoscopia";
+import Cronologia from "@/components/Cronologia";
+import Avaliacao from "@/components/Avaliacao";
+import Resultados from "@/components/Resultados";
+import Sobre from "@/components/Sobre";
+import CtaFinal from "@/components/CtaFinal";
+import Footer from "@/components/Footer";
+import { useReveal } from "@/hooks/use-reveal";
 
 const Index = () => {
-  useEffect(() => {
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href')?.substring(1);
-        if (!targetId) return;
-        
-        const targetElement = document.getElementById(targetId);
-        if (!targetElement) return;
-        
-        window.scrollTo({
-          top: targetElement.offsetTop - 80, // Offset for navbar
-          behavior: 'smooth'
-        });
-      });
-    });
-  }, []);
+  useReveal();
 
   return (
-    <main className="min-h-screen w-full bg-clinic-cream overflow-x-hidden">
+    <main className="min-h-screen w-full overflow-x-hidden bg-background">
       <Navbar />
       <Hero />
-      <Services />
-      <Benefits />
-      <Testimonials />
-      <ContactForm />
+      <Sinais />
+      <Causas />
+      <Tricoscopia />
+      <Cronologia />
+      <Avaliacao />
+      <Resultados />
+      <Sobre />
+      <CtaFinal />
       <Footer />
     </main>
   );
