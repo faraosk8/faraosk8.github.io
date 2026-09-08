@@ -1,5 +1,5 @@
 import { CalendarCheck, MessageCircle, UserRound, Search, FileText } from "lucide-react";
-import heroAsset from "@/assets/hero-fernanda.png.asset.json";
+import heroAsset from "@/assets/hero-modelo.png.asset.json";
 import { WHATSAPP_URL } from "./Navbar";
 
 const highlights = [
@@ -47,9 +47,9 @@ const Hero = () => {
           <div className="overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
             <img
               src={heroAsset.url}
-              alt="Fernanda Rabelo realizando tricoscopia no couro cabeludo de uma cliente"
-              width={919}
-              height={1633}
+              alt="Fernanda Rabelo segurando modelo anatômico do folículo capilar"
+              width={1243}
+              height={1280}
               className="h-[380px] w-full object-cover md:h-[540px]"
             />
           </div>
