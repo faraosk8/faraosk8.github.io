@@ -1,6 +1,8 @@
 import { Check, CalendarCheck, MessageCircle, ClipboardList, Microscope, LineChart, Sparkles } from "lucide-react";
 import { WHATSAPP_URL } from "./Navbar";
-import cabelo from "@/assets/cabelo-saudavel.jpg";
+import cabeloAsset from "@/assets/fernanda-modelo.png.asset.json";
+
+const cabelo = cabeloAsset.url;
 
 const etapas = [
   "História capilar completa",
