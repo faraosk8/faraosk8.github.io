@@ -1,5 +1,5 @@
 import { CalendarCheck, MessageCircle, UserRound, Search, FileText } from "lucide-react";
-import heroImage from "@/assets/hero-tricologia.jpg";
+import heroAsset from "@/assets/hero-fernanda.png.asset.json";
 import { WHATSAPP_URL } from "./Navbar";
 
 const highlights = [
@@ -46,10 +46,10 @@ const Hero = () => {
         <div className="reveal relative">
           <div className="overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
             <img
-              src={heroImage}
-              alt="Profissional realizando tricoscopia no couro cabeludo de uma cliente"
-              width={1280}
-              height={1600}
+              src={heroAsset.url}
+              alt="Fernanda Rabelo realizando tricoscopia no couro cabeludo de uma cliente"
+              width={919}
+              height={1633}
               className="h-[380px] w-full object-cover md:h-[540px]"
             />
           </div>
