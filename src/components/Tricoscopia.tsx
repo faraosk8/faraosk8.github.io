@@ -25,10 +25,10 @@ const Tricoscopia = () => (
         <div className="overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
           <img
             src={tricoscopia}
-            alt="Tablet exibindo imagem ampliada do couro cabeludo durante tricoscopia"
+            alt="Profissional realizando tricoscopia com câmera enquanto a imagem ampliada do couro cabeludo aparece na tela"
             loading="lazy"
             width={1200}
-            height={912}
+            height={1120}
             className="h-full w-full object-cover"
           />
         </div>
