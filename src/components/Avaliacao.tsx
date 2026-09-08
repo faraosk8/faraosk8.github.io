@@ -55,10 +55,10 @@ const Avaliacao = () => (
         <div className="overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
           <img
             src={cabelo}
-            alt="Mulher com cabelos saudáveis e brilhantes"
+            alt="Fernanda Rabelo mostrando modelo anatômico do folículo capilar"
             loading="lazy"
-            width={1200}
-            height={912}
+            width={1243}
+            height={1280}
             className="h-full w-full object-cover"
           />
         </div>
