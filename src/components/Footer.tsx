@@ -1,5 +1,5 @@
-import { Instagram, MessageCircle, Mail, MapPin } from "lucide-react";
-import { WHATSAPP_URL } from "./Navbar";
+import { Instagram, MessageCircle, MapPin } from "lucide-react";
+import { WHATSAPP_URL, INSTAGRAM_URL } from "./Navbar";
 
 const Footer = () => (
   <footer className="bg-espresso px-6 py-14 text-cream">

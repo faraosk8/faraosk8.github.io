@@ -10,7 +10,9 @@ const links = [
 ];
 
 export const WHATSAPP_URL =
-  "https://wa.me/5585999999999?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20capilar";
+  "https://wa.me/5585997734978?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20capilar";
+
+export const INSTAGRAM_URL = "https://instagram.com/drafernandarabelotricologia";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
