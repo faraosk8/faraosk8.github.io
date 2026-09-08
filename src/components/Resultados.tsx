@@ -9,18 +9,18 @@ import {
 const depoimentos = [
   {
     texto:
-      "Hoje vejo meu cabelo mais cheio e saudável. O acompanhamento fez toda a diferença.",
-    autora: "Ana L.",
+      "Já fui em outros profissionais, mas nenhum tinha tanto profissionalismo e amor pela o que faz. Ela cuida de você desde do fio de cabelo até uma palavra acolhedora.",
+    autora: "VICTORIA PACHÊCO.",
   },
   {
     texto:
-      "Me senti acolhida e entendida, e hoje minha queda está controlada. Indico de olhos fechados.",
-    autora: "Marina S.",
+      "O atendimento é sempre muito especial.  A Fernanda é sempre muito comprometida com o estudo e atualização constante de procedimentos e práticas baseadas em evidência científica. São sempre muito atenciosas.  É um atendimento impecável. Faz bem para a alma!",
+    autora: "VALÉCIA ARAÚJO.",
   },
   {
     texto:
-      "Finalmente entendi o que estava acontecendo com meus fios e o que fazer a respeito.",
-    autora: "Patrícia M.",
+      "Atendimento de excelência e resultados rápidos. Amo esse lugar. Fernanda, tu és uma profissional incrível.",
+    autora: "DIALLA SUSAN.",
   },
 ];
 
