@@ -1,5 +1,7 @@
 import { Check, ArrowRight, Brain, Thermometer, Stethoscope, Apple, Pill } from "lucide-react";
-import tricoscopia from "@/assets/tricoscopia.jpg";
+import tricoscopiaAsset from "@/assets/tricoscopia-real.png.asset.json";
+
+const tricoscopia = tricoscopiaAsset.url;
 
 const itens = [
   "Avaliação do couro cabeludo e dos fios",
