@@ -1,5 +1,5 @@
-import { Instagram, MessageCircle, Mail, MapPin } from "lucide-react";
-import { WHATSAPP_URL } from "./Navbar";
+import { Instagram, MessageCircle, MapPin } from "lucide-react";
+import { WHATSAPP_URL, INSTAGRAM_URL } from "./Navbar";
 
 const Footer = () => (
   <footer className="bg-espresso px-6 py-14 text-cream">
@@ -25,7 +25,7 @@ const Footer = () => (
           <MessageCircle className="h-4 w-4" />
         </a>
         <a
-          href="https://instagram.com"
+          href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
@@ -33,18 +33,34 @@ const Footer = () => (
         >
           <Instagram className="h-4 w-4" />
         </a>
-        <a
-          href="mailto:contato@fernandarabelo.com"
-          aria-label="E-mail"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-cream/25 transition-colors hover:border-gold hover:text-gold"
-        >
-          <Mail className="h-4 w-4" />
-        </a>
       </div>
 
-      <p className="mt-6 flex items-center gap-2 text-sm text-cream/70">
-        <MapPin className="h-4 w-4" /> Fortaleza — CE
+      <a
+        href={INSTAGRAM_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-5 text-sm text-cream/70 transition-colors hover:text-gold"
+      >
+        @drafernandarabelotricologia
+      </a>
+
+      <p className="mt-4 flex items-start gap-2 text-sm text-cream/70">
+        <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+        <span>
+          Av. Antônio Sales, 1317 — Sala 905
+          <br />
+          Fortaleza — CE
+        </span>
       </p>
+
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 text-sm text-cream/70 transition-colors hover:text-gold"
+      >
+        (85) 9 9773-4978
+      </a>
 
       <p className="mt-8 max-w-xl text-[0.7rem] leading-relaxed text-cream/50">
         Conteúdo informativo e educativo. Não substitui avaliação individualizada nem
