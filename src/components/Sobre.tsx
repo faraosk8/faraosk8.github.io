@@ -1,5 +1,5 @@
 import { Microscope, ShieldCheck, HeartHandshake } from "lucide-react";
-import retrato from "@/assets/fernanda-livro.png.asset.json";
+import retrato from "@/assets/sobre-livro-cabelo.png.asset.json";
 
 const pilares = [
   { icon: Microscope, label: "Ciência" },
@@ -13,10 +13,10 @@ const Sobre = () => (
       <div className="reveal overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
         <img
           src={retrato.url}
-          alt="Fernanda Rabelo, especialista em estética e tricologia, com livro sobre calvície"
+          alt="Fernanda Rabelo, especialista em estética e tricologia, segurando o livro Dr. Cabelo"
           loading="lazy"
-          width={1027}
-          height={1110}
+          width={1163}
+          height={1200}
           className="h-full w-full object-cover"
         />
       </div>
