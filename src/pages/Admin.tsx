@@ -87,12 +87,33 @@ const Admin = () => {
     if (isAdmin) loadPosts();
   }, [isAdmin]);
 
+  const [mode, setMode] = useState<"entrar" | "criar">("entrar");
+
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setAuthLoading(false);
     if (error) toast.error("E-mail ou senha incorretos.");
+  };
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthLoading(true);
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: window.location.origin },
+    });
+    setAuthLoading(false);
+    if (error) {
+      toast.error("Não foi possível criar a conta. Tente novamente.");
+      return;
+    }
+    if (!data.session) {
+      toast.success("Conta criada! Confirme o e-mail que você recebeu e depois entre aqui.");
+      setMode("entrar");
+    }
   };
 
   const handleSignOut = async () => {
