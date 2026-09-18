@@ -119,6 +119,8 @@ const Admin = () => {
       const message =
         error.code === "weak_password" || error.message.toLowerCase().includes("weak")
           ? "Essa senha é muito comum ou já apareceu em vazamentos. Crie outra com pelo menos 8 caracteres, misturando letras maiúsculas, minúsculas, números e símbolo."
+          : error.code === "email_provider_disabled"
+            ? "O cadastro por e-mail está temporariamente indisponível. Atualize a página e tente novamente."
           : error.message.toLowerCase().includes("already registered")
             ? "Este e-mail já possui uma conta. Clique em “Já tenho conta — entrar”."
             : "Não foi possível criar a conta. Tente novamente.";
