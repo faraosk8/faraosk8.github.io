@@ -44,6 +44,7 @@ const Admin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
+  const [authError, setAuthError] = useState("");
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [editing, setEditing] = useState<Post | null>(null);
@@ -91,14 +92,22 @@ const Admin = () => {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAuthError("");
     setAuthLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setAuthLoading(false);
-    if (error) toast.error("E-mail ou senha incorretos.");
+    if (error) {
+      const message = error.message.toLowerCase().includes("email not confirmed")
+        ? "Confirme seu e-mail antes de entrar. Verifique também a pasta de spam."
+        : "E-mail ou senha incorretos.";
+      setAuthError(message);
+      toast.error(message);
+    }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAuthError("");
     setAuthLoading(true);
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -107,7 +116,14 @@ const Admin = () => {
     });
     setAuthLoading(false);
     if (error) {
-      toast.error("Não foi possível criar a conta. Tente novamente.");
+      const message =
+        error.code === "weak_password" || error.message.toLowerCase().includes("weak")
+          ? "Essa senha é muito comum ou já apareceu em vazamentos. Crie outra com pelo menos 8 caracteres, misturando letras maiúsculas, minúsculas, números e símbolo."
+          : error.message.toLowerCase().includes("already registered")
+            ? "Este e-mail já possui uma conta. Clique em “Já tenho conta — entrar”."
+            : "Não foi possível criar a conta. Tente novamente.";
+      setAuthError(message);
+      toast.error(message);
       return;
     }
     if (!data.session) {
@@ -220,12 +236,26 @@ const Admin = () => {
         <input
           type="password"
           required
-          minLength={6}
-          placeholder={mode === "entrar" ? "Sua senha" : "Crie uma senha (mín. 6 caracteres)"}
+          minLength={mode === "criar" ? 8 : 6}
+          placeholder={mode === "entrar" ? "Sua senha" : "Crie uma senha forte (mín. 8 caracteres)"}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setAuthError("");
+          }}
           className={inputClass}
         />
+        {mode === "criar" && (
+          <p className="text-xs leading-relaxed text-espresso/60">
+            Evite nomes, datas, sequências e senhas já usadas. Combine letras maiúsculas e
+            minúsculas, números e símbolo.
+          </p>
+        )}
+        {authError && (
+          <p role="alert" className="text-sm leading-relaxed text-destructive">
+            {authError}
+          </p>
+        )}
         <button type="submit" disabled={authLoading} className="btn-wine w-full">
           {authLoading
             ? "Aguarde…"
