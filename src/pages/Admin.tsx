@@ -203,10 +203,12 @@ const Admin = () => {
   if (!user) {
     content = (
       <form
-        onSubmit={handleSignIn}
+        onSubmit={mode === "entrar" ? handleSignIn : handleSignUp}
         className="soft-card mx-auto mt-10 flex w-full max-w-sm flex-col gap-4"
       >
-        <h2 className="text-center font-serif text-2xl text-espresso">Entrar</h2>
+        <h2 className="text-center font-serif text-2xl text-espresso">
+          {mode === "entrar" ? "Entrar" : "Criar conta"}
+        </h2>
         <input
           type="email"
           required
@@ -218,13 +220,27 @@ const Admin = () => {
         <input
           type="password"
           required
-          placeholder="Sua senha"
+          minLength={6}
+          placeholder={mode === "entrar" ? "Sua senha" : "Crie uma senha (mín. 6 caracteres)"}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className={inputClass}
         />
         <button type="submit" disabled={authLoading} className="btn-wine w-full">
-          {authLoading ? "Entrando…" : "Entrar"}
+          {authLoading
+            ? "Aguarde…"
+            : mode === "entrar"
+              ? "Entrar"
+              : "Criar conta"}
+        </button>
+        <button
+          type="button"
+          onClick={() => setMode(mode === "entrar" ? "criar" : "entrar")}
+          className="text-sm text-espresso/60 transition-colors hover:text-wine"
+        >
+          {mode === "entrar"
+            ? "Primeira vez? Criar minha conta"
+            : "Já tenho conta — entrar"}
         </button>
       </form>
     );
