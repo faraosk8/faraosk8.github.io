@@ -236,7 +236,7 @@ const Admin = () => {
         <input
           type="password"
           required
-          minLength={8}
+          minLength={mode === "criar" ? 8 : 6}
           placeholder={mode === "entrar" ? "Sua senha" : "Crie uma senha forte (mín. 8 caracteres)"}
           value={password}
           onChange={(e) => {
