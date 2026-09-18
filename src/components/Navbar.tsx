@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X, MessageCircle } from "lucide-react";
 
 const links = [
@@ -7,6 +8,7 @@ const links = [
   { label: "Tricoscopia", href: "#tricoscopia" },
   { label: "Avaliação", href: "#avaliacao" },
   { label: "Sobre", href: "#sobre" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export const WHATSAPP_URL =
@@ -45,12 +47,21 @@ const Navbar = () => {
           <ul className="flex items-center gap-8">
             {links.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-sm text-espresso/80 transition-colors hover:text-wine"
-                >
-                  {link.label}
-                </a>
+                {link.href.startsWith("/") ? (
+                  <Link
+                    to={link.href}
+                    className="text-sm text-espresso/80 transition-colors hover:text-wine"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="text-sm text-espresso/80 transition-colors hover:text-wine"
+                  >
+                    {link.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -81,13 +92,23 @@ const Navbar = () => {
           <ul className="space-y-3">
             {links.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="block text-sm text-espresso/80"
-                >
-                  {link.label}
-                </a>
+                {link.href.startsWith("/") ? (
+                  <Link
+                    to={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block text-sm text-espresso/80"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block text-sm text-espresso/80"
+                  >
+                    {link.label}
+                  </a>
+                )}
               </li>
             ))}
             <li>

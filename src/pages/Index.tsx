@@ -7,6 +7,7 @@ import Cronologia from "@/components/Cronologia";
 import Avaliacao from "@/components/Avaliacao";
 import Resultados from "@/components/Resultados";
 import Sobre from "@/components/Sobre";
+import BlogPreview from "@/components/BlogPreview";
 import CtaFinal from "@/components/CtaFinal";
 import Footer from "@/components/Footer";
 import { useReveal } from "@/hooks/use-reveal";
@@ -25,6 +26,7 @@ const Index = () => {
       <Avaliacao />
       <Resultados />
       <Sobre />
+      <BlogPreview />
       <CtaFinal />
       <Footer />
     </main>
