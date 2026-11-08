@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -45,6 +45,10 @@
     --wine-deep: 355 30% 30%;
     --espresso: 20 30% 16%;
     --gold: 32 42% 55%;
+    --terracotta: 17 39% 47%;
+    --cocoa: 15 21% 25%;
+    --project-cream: 27 45% 94%;
+    --project-beige: 27 39% 86%;
 
     --gradient-blush: linear-gradient(180deg, hsl(var(--blush)) 0%, hsl(var(--cream)) 100%);
     --gradient-wine: linear-gradient(135deg, hsl(var(--wine)) 0%, hsl(var(--rose)) 100%);
@@ -89,6 +93,18 @@
 
   .soft-card {
     @apply rounded-3xl border border-border/70 bg-card p-6 shadow-[var(--shadow-card)];
+  }
+
+  .btn-terracotta {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-7 py-3.5 text-sm font-medium text-primary-foreground transition-all duration-300 hover:bg-cocoa hover:shadow-[var(--shadow-soft)] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .project-card {
+    @apply rounded-3xl border border-terracotta/10 bg-project-beige/60 p-6;
+  }
+
+  .project-input {
+    @apply w-full rounded-xl border border-cocoa/15 bg-card px-4 py-3 text-sm text-cocoa outline-none transition-colors placeholder:text-cocoa/40 focus:border-terracotta;
   }
 
   .reveal {
