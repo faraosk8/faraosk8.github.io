@@ -1,4 +1,5 @@
-import { Instagram, MessageCircle, MapPin } from "lucide-react";
+import { Instagram, MessageCircle, MapPin, HeartHandshake } from "lucide-react";
+import { Link } from "react-router-dom";
 import { WHATSAPP_URL, INSTAGRAM_URL } from "./Navbar";
 
 const Footer = () => (
@@ -61,6 +62,14 @@ const Footer = () => (
       >
         (85) 9 9773-4978
       </a>
+
+      <Link
+        to="/um-olhar-de-cuidado"
+        className="mt-6 inline-flex items-center gap-2 text-sm text-cream/75 transition-colors hover:text-gold"
+      >
+        <HeartHandshake className="h-4 w-4" />
+        Projeto Social — Um Olhar de Cuidado
+      </Link>
 
       <p className="mt-8 max-w-xl text-[0.7rem] leading-relaxed text-cream/50">
         Conteúdo informativo e educativo. Não substitui avaliação individualizada nem

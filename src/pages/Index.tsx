@@ -8,6 +8,7 @@ import Avaliacao from "@/components/Avaliacao";
 import Resultados from "@/components/Resultados";
 import Sobre from "@/components/Sobre";
 import BlogPreview from "@/components/BlogPreview";
+import ProjetoSocialBanner from "@/components/ProjetoSocialBanner";
 import CtaFinal from "@/components/CtaFinal";
 import Footer from "@/components/Footer";
 import { useReveal } from "@/hooks/use-reveal";
@@ -27,6 +28,7 @@ const Index = () => {
       <Resultados />
       <Sobre />
       <BlogPreview />
+      <ProjetoSocialBanner />
       <CtaFinal />
       <Footer />
     </main>
