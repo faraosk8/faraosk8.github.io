@@ -2,7 +2,7 @@
 
 # Estrela-guia
 
-Pessoas em Fortaleza recebem cuidado especializado para o cabelo e a pele, independentemente do quanto podem pagar.
+Pessoas em Fortaleza com queda de cabelo ou problemas no couro cabeludo agendam avaliação capilar com a Fernanda Rabelo, e mulheres, mães e adolescentes sem condições financeiras se inscrevem para receber estética facial gratuita pelo projeto Um Olhar de Cuidado.
 
 ## Métrica
 
