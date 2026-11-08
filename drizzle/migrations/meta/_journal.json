@@ -8,6 +8,13 @@
       "when": 1789698366541,
       "tag": "0000_blog_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794155889538,
+      "tag": "0001_create_olhar_cuidado_inscricoes",
+      "breakpoints": true
     }
   ]
 }

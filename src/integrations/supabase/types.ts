@@ -14,6 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
+      inscricoes_olhar_cuidado: {
+        Row: {
+          autorizacao_responsavel: boolean
+          bairro: string
+          cidade: string
+          consentimento_lgpd: boolean
+          created_at: string
+          email: string | null
+          id: string
+          idade: number
+          motivo: string
+          nome: string
+          nome_responsavel: string | null
+          status: string
+          telefone: string
+          telefone_responsavel: string | null
+        }
+        Insert: {
+          autorizacao_responsavel?: boolean
+          bairro: string
+          cidade: string
+          consentimento_lgpd: boolean
+          created_at?: string
+          email?: string | null
+          id?: string
+          idade: number
+          motivo: string
+          nome: string
+          nome_responsavel?: string | null
+          status?: string
+          telefone: string
+          telefone_responsavel?: string | null
+        }
+        Update: {
+          autorizacao_responsavel?: boolean
+          bairro?: string
+          cidade?: string
+          consentimento_lgpd?: boolean
+          created_at?: string
+          email?: string | null
+          id?: string
+          idade?: number
+          motivo?: string
+          nome?: string
+          nome_responsavel?: string | null
+          status?: string
+          telefone?: string
+          telefone_responsavel?: string | null
+        }
+        Relationships: []
+      }
+      inscricoes_olhar_cuidado_rate_limits: {
+        Row: {
+          chave_hash: string
+          janela_inicio: string
+          quantidade: number
+        }
+        Insert: {
+          chave_hash: string
+          janela_inicio: string
+          quantidade?: number
+        }
+        Update: {
+          chave_hash?: string
+          janela_inicio?: string
+          quantidade?: number
+        }
+        Relationships: []
+      }
       posts: {
         Row: {
           category: string | null
@@ -79,6 +148,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      consumir_limite_olhar_cuidado: {
+        Args: { p_chave_hash: string; p_limite?: number }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
