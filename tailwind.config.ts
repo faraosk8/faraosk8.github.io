@@ -39,6 +39,10 @@ export default {
         },
         espresso: "hsl(var(--espresso))",
         gold: "hsl(var(--gold))",
+        terracotta: "hsl(var(--terracotta))",
+        cocoa: "hsl(var(--cocoa))",
+        "project-cream": "hsl(var(--project-cream))",
+        "project-beige": "hsl(var(--project-beige))",
 
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -87,6 +91,7 @@ export default {
       fontFamily: {
         sans: ['Jost', 'sans-serif'],
         serif: ['Cormorant Garamond', 'serif'],
+        handwritten: ['Allura', 'cursive'],
       },
 
       keyframes: {

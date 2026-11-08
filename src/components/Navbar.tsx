@@ -9,6 +9,7 @@ const links = [
   { label: "Avaliação", href: "#avaliacao" },
   { label: "Sobre", href: "#sobre" },
   { label: "Blog", href: "/blog" },
+  { label: "Projeto Social", href: "/um-olhar-de-cuidado" },
 ];
 
 export const WHATSAPP_URL =
