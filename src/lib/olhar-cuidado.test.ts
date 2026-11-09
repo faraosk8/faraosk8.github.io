@@ -1,3 +1,4 @@
+// @ts-expect-error O runner de testes Bun fornece este módulo em tempo de execução.
 import { describe, expect, test } from "bun:test";
 import { inscricaoInicial, inscricaoSchema } from "./olhar-cuidado";
 
