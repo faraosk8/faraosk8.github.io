@@ -1,22 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import type { User } from "@supabase/supabase-js";
-import { ArrowLeft, Download, LogOut, Search, Trash2, X } from "lucide-react";
+import { ArrowLeft, Download, LogOut, MessageCircle, Search, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+import { getViaEntrada } from "@/lib/olhar-cuidado";
 
 type Inscricao = Tables<"inscricoes_olhar_cuidado">;
 
-const statusOptions = ["nova", "em contato", "agendada", "atendida", "não selecionada"] as const;
+const statusPadrao = ["nova", "em contato", "agendada", "atendida", "não selecionada"] as const;
+const statusProgramaSocial = ["nova", "em contato", "agendada", "comprovante verificado", "atendida", "não selecionada"] as const;
+const viasEntrada = ["Programa social", "Vulnerabilidade", "Ambos"] as const;
 
 const formatDate = (value: string) =>
   new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short" }).format(new Date(value));
 
-const csvCell = (value: string | number | boolean | null) => {
-  const text = value === null ? "" : String(value);
+const csvCell = (value: string | number | boolean | null | string[]) => {
+  const text = value === null ? "" : Array.isArray(value) ? value.join(", ") : String(value);
   return `"${text.replace(/"/g, '""')}"`;
 };
 
@@ -31,6 +34,7 @@ const AdminInscricoes = () => {
   const [inscricoes, setInscricoes] = useState<Inscricao[]>([]);
   const [loading, setLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState("todos");
+  const [viaFilter, setViaFilter] = useState("todas");
   const [bairroFilter, setBairroFilter] = useState("todos");
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Inscricao | null>(null);
@@ -90,10 +94,11 @@ const AdminInscricoes = () => {
     const term = search.trim().toLocaleLowerCase("pt-BR");
     return inscricoes.filter((item) =>
       (statusFilter === "todos" || item.status === statusFilter) &&
+      (viaFilter === "todas" || getViaEntrada(item.via_programa_social, item.via_vulnerabilidade) === viaFilter) &&
       (bairroFilter === "todos" || item.bairro === bairroFilter) &&
       (!term || item.nome.toLocaleLowerCase("pt-BR").includes(term)),
     );
-  }, [inscricoes, statusFilter, bairroFilter, search]);
+  }, [inscricoes, statusFilter, viaFilter, bairroFilter, search]);
 
   const handleSignIn = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -152,7 +157,11 @@ const AdminInscricoes = () => {
   };
 
   const exportCsv = () => {
-    const headers = ["Data", "Nome", "Idade", "Telefone", "E-mail", "Bairro", "Cidade", "Motivo", "Responsável", "Telefone do responsável", "Autorização do responsável", "Consentimento LGPD", "Status"];
+    const headers = [
+      "Data", "Nome", "Idade", "Telefone", "E-mail", "Bairro", "Cidade", "Via de entrada", "Programas sociais",
+      "Outro programa", "Declaração de beneficiário", "Preferência de contato", "Contato alternativo", "Melhor horário",
+      "Motivo", "Responsável", "Telefone do responsável", "Autorização do responsável", "Consentimento LGPD", "Status",
+    ];
     const rows = filtered.map((item) => [
       item.created_at,
       item.nome,
@@ -161,6 +170,13 @@ const AdminInscricoes = () => {
       item.email,
       item.bairro,
       item.cidade,
+      getViaEntrada(item.via_programa_social, item.via_vulnerabilidade),
+      item.programas_sociais,
+      item.programa_outro,
+      item.declaracao_beneficiario,
+      item.preferencia_contato,
+      item.contato_alternativo,
+      item.melhor_horario,
       item.motivo,
       item.nome_responsavel,
       item.telefone_responsavel,
@@ -212,17 +228,24 @@ const AdminInscricoes = () => {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-3 md:grid-cols-[1fr_180px_180px]">
+        <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-[1fr_190px_190px_180px]">
           <label className="relative">
             <span className="sr-only">Buscar por nome</span>
             <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-espresso/40" />
             <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Buscar por nome" className="w-full rounded-xl border border-border/70 bg-card py-3 pl-11 pr-4 text-sm text-espresso outline-none focus:border-wine" />
           </label>
           <label>
+            <span className="sr-only">Filtrar por via de entrada</span>
+            <select value={viaFilter} onChange={(event) => { setViaFilter(event.target.value); setStatusFilter("todos"); }} className="w-full rounded-xl border border-border/70 bg-card px-4 py-3 text-sm text-espresso outline-none focus:border-wine">
+              <option value="todas">Todas as vias</option>
+              {viasEntrada.map((via) => <option key={via} value={via}>{via}</option>)}
+            </select>
+          </label>
+          <label>
             <span className="sr-only">Filtrar por status</span>
             <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)} className="w-full rounded-xl border border-border/70 bg-card px-4 py-3 text-sm text-espresso outline-none focus:border-wine">
               <option value="todos">Todos os status</option>
-              {statusOptions.map((status) => <option key={status} value={status}>{status}</option>)}
+              {(viaFilter === "Programa social" ? statusProgramaSocial : statusPadrao).map((status) => <option key={status} value={status}>{status}</option>)}
             </select>
           </label>
           <label>
@@ -235,11 +258,13 @@ const AdminInscricoes = () => {
         </div>
 
         <div className="mt-6 overflow-x-auto rounded-2xl border border-border/70 bg-card">
-          <table className="w-full min-w-[760px] text-left text-sm">
+          <table className="w-full min-w-[1080px] text-left text-sm">
             <thead className="border-b border-border/70 bg-secondary/50 text-xs uppercase tracking-[0.1em] text-espresso/60">
               <tr>
                 <th className="px-5 py-4 font-medium">Nome</th>
                 <th className="px-5 py-4 font-medium">Telefone</th>
+                <th className="px-5 py-4 font-medium">Via de entrada</th>
+                <th className="px-5 py-4 font-medium">Preferência de contato</th>
                 <th className="px-5 py-4 font-medium">Bairro</th>
                 <th className="px-5 py-4 font-medium">Data</th>
                 <th className="px-5 py-4 font-medium">Status</th>
@@ -259,6 +284,13 @@ const AdminInscricoes = () => {
                     {item.idade < 18 && <span className="ml-2 rounded-full bg-project-beige px-2 py-1 text-[0.65rem] font-medium text-terracotta">Menor de 18</span>}
                   </td>
                   <td className="px-5 py-4">{item.telefone}</td>
+                  <td className="px-5 py-4">{getViaEntrada(item.via_programa_social, item.via_vulnerabilidade)}</td>
+                  <td className="px-5 py-4">
+                    <span className={`inline-flex rounded-full px-3 py-1 text-xs ${item.preferencia_contato === "Sim" ? "bg-secondary text-espresso/70" : "bg-terracotta/15 font-medium text-terracotta"}`}>
+                      {item.preferencia_contato === "Sim" ? "Mensagem autorizada" : item.preferencia_contato || "Não informada"}
+                    </span>
+                    {item.preferencia_contato === "Prefiro outro contato" && item.contato_alternativo && <p className="mt-2 max-w-48 text-xs text-espresso/70">{item.contato_alternativo}</p>}
+                  </td>
                   <td className="px-5 py-4">{item.bairro}</td>
                   <td className="px-5 py-4">{formatDate(item.created_at)}</td>
                   <td className="px-5 py-4"><span className="rounded-full bg-secondary px-3 py-1 text-xs capitalize">{item.status}</span></td>
@@ -272,6 +304,9 @@ const AdminInscricoes = () => {
       </div>
     );
   }
+
+  const whatsappDigits = selected?.telefone.replace(/\D/g, "") ?? "";
+  const whatsappUrl = selected ? `https://wa.me/55${whatsappDigits}?text=${encodeURIComponent(`Olá, ${selected.nome}! Aqui é da equipe do projeto Um Olhar de Cuidado.`)}` : "";
 
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-background">
@@ -305,8 +340,37 @@ const AdminInscricoes = () => {
                 ["Bairro", selected.bairro],
                 ["Cidade", selected.cidade],
                 ["Data da inscrição", formatDate(selected.created_at)],
+                ["Via de entrada", getViaEntrada(selected.via_programa_social, selected.via_vulnerabilidade)],
+                ["Preferência de contato", selected.preferencia_contato || "Não informada"],
+                ["Como prefere ser contatada", selected.contato_alternativo || "Não informado"],
+                ["Melhor horário", selected.melhor_horario || "Não informado"],
               ].map(([label, value]) => <div key={label}><dt className="text-xs uppercase tracking-[0.12em] text-cocoa/50">{label}</dt><dd className="mt-1 text-cocoa">{value}</dd></div>)}
             </dl>
+
+            {selected.via_programa_social && (
+              <div className="mt-6 rounded-2xl border border-terracotta/15 bg-project-beige/35 p-4 text-sm text-cocoa/80">
+                <p><strong>Programas:</strong> {selected.programas_sociais.join(", ") || "Não informado"}</p>
+                {selected.programa_outro && <p className="mt-2"><strong>Outro programa:</strong> {selected.programa_outro}</p>}
+                <p className="mt-2"><strong>Declaração e comprovante:</strong> {selected.declaracao_beneficiario ? "Confirmados" : "Não confirmados"}</p>
+              </div>
+            )}
+
+            <div className="mt-6 rounded-2xl border border-terracotta/15 p-4">
+              {selected.preferencia_contato === "Sim" ? (
+                <a href={whatsappUrl} target="_blank" rel="noreferrer" className="btn-terracotta w-full sm:w-auto">
+                  <MessageCircle className="h-4 w-4" /> Abrir WhatsApp
+                </a>
+              ) : (
+                <div className="text-sm leading-relaxed text-cocoa">
+                  <p className="font-medium text-terracotta">Não enviar mensagem para o telefone.</p>
+                  <p className="mt-1">
+                    {selected.preferencia_contato === "Prefiro outro contato"
+                      ? `Contato alternativo: ${selected.contato_alternativo || "não informado"}`
+                      : `Prefere ligação: ${selected.telefone}`}
+                  </p>
+                </div>
+              )}
+            </div>
 
             <div className="mt-6">
               <h3 className="text-xs uppercase tracking-[0.12em] text-cocoa/50">Por que gostaria de participar?</h3>
@@ -324,8 +388,8 @@ const AdminInscricoes = () => {
             <div className="mt-7 flex flex-col gap-3 border-t border-cocoa/10 pt-6 sm:flex-row sm:items-end">
               <label className="flex-1 text-sm text-cocoa">
                 <span className="mb-2 block font-medium">Status da inscrição</span>
-                <select value={selectedStatus} onChange={(event) => setSelectedStatus(event.target.value as Inscricao["status"])} className="project-input">
-                  {statusOptions.map((status) => <option key={status} value={status}>{status}</option>)}
+                <select value={selectedStatus} onChange={(event) => setSelectedStatus(event.target.value)} className="project-input">
+                  {(selected.via_programa_social ? statusProgramaSocial : statusPadrao).map((status) => <option key={status} value={status}>{status}</option>)}
                 </select>
               </label>
               <button onClick={saveStatus} disabled={saving} className="btn-terracotta">{saving ? "Salvando…" : "Salvar status"}</button>
