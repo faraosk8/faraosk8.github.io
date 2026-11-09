@@ -135,6 +135,27 @@ const Admin = () => {
     }
   };
 
+  const handleResetRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError("");
+    setResetSent(false);
+    setAuthLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setAuthLoading(false);
+    if (error) {
+      const message = error.code === "over_email_send_rate_limit"
+        ? "Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente novamente."
+        : "Não foi possível enviar o link agora. Tente novamente.";
+      setAuthError(message);
+      toast.error(message);
+      return;
+    }
+    setResetSent(true);
+    toast.success("Se houver uma conta com esse e-mail, enviaremos um link para redefinir a senha.");
+  };
+
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     setEditing(null);
