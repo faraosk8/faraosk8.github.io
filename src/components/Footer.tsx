@@ -1,4 +1,4 @@
-import { Instagram, MessageCircle, MapPin, HeartHandshake } from "lucide-react";
+import { Instagram, MessageCircle, MapPin, HeartHandshake, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { WHATSAPP_URL, INSTAGRAM_URL } from "./Navbar";
 

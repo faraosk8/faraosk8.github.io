@@ -8,6 +8,7 @@ import Avaliacao from "@/components/Avaliacao";
 import Resultados from "@/components/Resultados";
 import Sobre from "@/components/Sobre";
 import BlogPreview from "@/components/BlogPreview";
+import IndicacoesPreview from "@/components/IndicacoesPreview";
 import ProjetoSocialBanner from "@/components/ProjetoSocialBanner";
 import CtaFinal from "@/components/CtaFinal";
 import Footer from "@/components/Footer";

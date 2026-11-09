@@ -9,6 +9,9 @@ import BlogPost from "./pages/BlogPost";
 import Admin from "./pages/Admin";
 import UmOlharDeCuidado from "./pages/UmOlharDeCuidado";
 import AdminInscricoes from "./pages/AdminInscricoes";
+import Indicacoes from "./pages/Indicacoes";
+import RedirectIndicacao from "./pages/RedirectIndicacao";
+import AdminIndicacoes from "./pages/AdminIndicacoes";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
