@@ -88,7 +88,8 @@ const Admin = () => {
     if (isAdmin) loadPosts();
   }, [isAdmin]);
 
-  const [mode, setMode] = useState<"entrar" | "criar">("entrar");
+  const [mode, setMode] = useState<"entrar" | "criar" | "recuperar">("entrar");
+  const [resetSent, setResetSent] = useState(false);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();

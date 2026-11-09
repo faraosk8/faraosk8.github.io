@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Admin from "./pages/Admin";
+import ResetPassword from "./pages/ResetPassword";
 import UmOlharDeCuidado from "./pages/UmOlharDeCuidado";
 import AdminInscricoes from "./pages/AdminInscricoes";
 import Indicacoes from "./pages/Indicacoes";
