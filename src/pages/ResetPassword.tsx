@@ -24,6 +24,7 @@ const ResetPassword = () => {
     let active = true;
     const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ""));
     const hasRecoveryHash = hashParams.get("type") === "recovery";
+    const recoveryAccessToken = hashParams.get("access_token");
 
     const {
       data: { subscription },
