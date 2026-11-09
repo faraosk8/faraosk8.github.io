@@ -12,3 +12,13 @@
 - [x] Atualizar painel, filtros, contato e exportação
 - [x] Restringir o aviso por e-mail e atualizar a descrição da página
 - [x] Testar fluxo público, privacidade e painel
+
+# Indicações da Fernanda
+
+- [x] Criar tabelas, permissões, armazenamento de imagens e registro anônimo de cliques
+- [x] Criar página pública com busca, filtros na URL, ordenação e avisos
+- [x] Criar cards, redirecionamento medido e dados estruturados
+- [x] Adicionar carrossel na home e acessos no menu e rodapé
+- [x] Criar painel com cadastro, recorte de imagem, ações rápidas e reordenação
+- [x] Criar alertas, relatório por período e exportação CSV
+- [x] Testar regras, fluxo público, cliques, painel e responsividade
