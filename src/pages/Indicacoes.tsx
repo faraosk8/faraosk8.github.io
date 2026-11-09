@@ -31,9 +31,15 @@ const Indicacoes = () => {
   const paginaClique = temFiltroAplicado(filtros) ? "filtro_aplicado" : "indicacoes";
 
   useEffect(() => {
-    document.title = "Indicações da Fernanda | Produtos para cabelo e pele";
+    const tituloAnterior = document.title;
     const descricao = document.querySelector('meta[name="description"]');
+    const descricaoAnterior = descricao?.getAttribute("content") ?? "";
+    document.title = "Indicações da Fernanda | Produtos para cabelo e pele";
     descricao?.setAttribute("content", "Produtos para cabelo, couro cabeludo e pele que a Fernanda Rabelo usa e indica. Links para Amazon, Mercado Livre e outras lojas.");
+    return () => {
+      document.title = tituloAnterior;
+      descricao?.setAttribute("content", descricaoAnterior);
+    };
   }, []);
 
   useEffect(() => {

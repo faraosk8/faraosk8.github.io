@@ -109,7 +109,7 @@ const AdminIndicacoes = () => {
     const { error } = await supabase.from("produtos_indicados").insert({
       ...dados,
       nome: `${produto.nome} (cópia)`.slice(0, 160),
-      slug: `${produto.slug}-copia-${Date.now().toString().slice(-6)}`.slice(0, 100),
+      slug: `${produto.slug.slice(0, 82)}-copia-${Date.now().toString().slice(-8)}`,
       ativo: false,
       destaque_home: false,
       ordem: produtos.length,

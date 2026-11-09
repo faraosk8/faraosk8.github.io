@@ -58,7 +58,7 @@ const ProductCard = ({ produto, pagina, imagem }: Props) => {
 
   return (
     <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)]">
-      <script type="application/ld+json">{JSON.stringify(dadosEstruturados)}</script>
+      <script type="application/ld+json">{JSON.stringify(dadosEstruturados).replace(/</g, "\\u003c")}</script>
       <div className="relative aspect-square overflow-hidden bg-sand/60">
         {imagem ? (
           <img src={imagem} alt={produto.nome} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
