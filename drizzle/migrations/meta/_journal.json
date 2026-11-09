@@ -29,6 +29,13 @@
       "when": 1794187766770,
       "tag": "0003_create_indicacoes_produtos",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794188677197,
+      "tag": "0004_restrict_product_image_reads",
+      "breakpoints": true
     }
   ]
 }
