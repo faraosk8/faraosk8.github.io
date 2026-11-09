@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      cliques_indicacoes: {
+        Row: {
+          created_at: string
+          id: string
+          origem: string | null
+          pagina: string
+          produto_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          origem?: string | null
+          pagina: string
+          produto_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          origem?: string | null
+          pagina?: string
+          produto_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cliques_indicacoes_produto_id_fkey"
+            columns: ["produto_id"]
+            isOneToOne: false
+            referencedRelation: "produtos_indicados"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       inscricoes_olhar_cuidado: {
         Row: {
           autorizacao_responsavel: boolean
@@ -145,6 +177,78 @@ export type Database = {
           published_at?: string | null
           slug?: string
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      produtos_indicados: {
+        Row: {
+          ativo: boolean
+          categoria: string
+          created_at: string
+          cupom: string | null
+          cupom_validade: string | null
+          destaque_home: boolean
+          favorito: boolean
+          id: string
+          imagem_url: string | null
+          link_afiliado: string
+          loja: string
+          loja_outra_nome: string | null
+          necessidades: string[]
+          nome: string
+          ordem: number
+          por_que_indico: string
+          preco: number | null
+          preco_anterior: number | null
+          preco_verificado_em: string | null
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          ativo?: boolean
+          categoria: string
+          created_at?: string
+          cupom?: string | null
+          cupom_validade?: string | null
+          destaque_home?: boolean
+          favorito?: boolean
+          id?: string
+          imagem_url?: string | null
+          link_afiliado: string
+          loja: string
+          loja_outra_nome?: string | null
+          necessidades?: string[]
+          nome: string
+          ordem?: number
+          por_que_indico?: string
+          preco?: number | null
+          preco_anterior?: number | null
+          preco_verificado_em?: string | null
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          ativo?: boolean
+          categoria?: string
+          created_at?: string
+          cupom?: string | null
+          cupom_validade?: string | null
+          destaque_home?: boolean
+          favorito?: boolean
+          id?: string
+          imagem_url?: string | null
+          link_afiliado?: string
+          loja?: string
+          loja_outra_nome?: string | null
+          necessidades?: string[]
+          nome?: string
+          ordem?: number
+          por_que_indico?: string
+          preco?: number | null
+          preco_anterior?: number | null
+          preco_verificado_em?: string | null
+          slug?: string
           updated_at?: string
         }
         Relationships: []
