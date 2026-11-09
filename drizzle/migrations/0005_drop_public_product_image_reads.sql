@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Imagens de produtos ativos podem ser lidas" ON storage.objects;
