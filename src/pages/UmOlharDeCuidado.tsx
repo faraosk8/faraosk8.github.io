@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FunctionsHttpError } from "@supabase/supabase-js";
 import {
   ArrowDown,
@@ -10,8 +10,10 @@ import {
   HeartHandshake,
   ImagePlus,
   Info,
+  Landmark,
+  LogOut,
   Send,
-  UserRound,
+  ShieldCheck,
   Users,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -23,6 +25,8 @@ import {
   getSessionId,
   inscricaoInicial,
   inscricaoSchema,
+  preferenciasContato,
+  programasSociais,
   type InscricaoFormState,
 } from "@/lib/olhar-cuidado";
 
@@ -60,9 +64,16 @@ const valores = [
 ];
 
 const publicos = [
-  { icon: UserRound, text: "Mulheres em situação de vulnerabilidade social." },
-  { icon: HeartHandshake, text: "Mães que enfrentam dificuldades financeiras." },
-  { icon: Baby, text: "Adolescentes que não têm acesso a cuidados estéticos." },
+  { icon: Landmark, text: "Mulheres de famílias beneficiárias de programas sociais, como Bolsa Família e BPC, ou inscritas no CadÚnico." },
+  { icon: HeartHandshake, text: "Mães que enfrentam dificuldades financeiras e participam de programas sociais." },
+  { icon: Baby, text: "Adolescentes de famílias beneficiárias de programas sociais." },
+  { icon: ShieldCheck, text: "Mulheres em situação de vulnerabilidade ou que passaram ou passam por violência doméstica." },
+];
+
+const avisos = [
+  "Para adolescentes, é necessária a autorização do responsável.",
+  "Para quem se inscreve por programa social, será solicitado um comprovante no dia do atendimento (cartão, extrato ou folha resumo do CadÚnico).",
+  "Mulheres em situação de violência doméstica não precisam apresentar documento nem contar sua história para participar.",
 ];
 
 const passos = [
@@ -83,8 +94,32 @@ const UmOlharDeCuidado = () => {
   const [submitError, setSubmitError] = useState("");
   const menorDeIdade = form.idade !== "" && Number(form.idade) < 18;
 
+  useEffect(() => {
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const previousDescription = meta?.content;
+    const previousTitle = document.title;
+    document.title = "Um Olhar de Cuidado | Fernanda Rabelo";
+    meta?.setAttribute(
+      "content",
+      "Estética facial gratuita para famílias beneficiárias de programas sociais e mulheres em situação de vulnerabilidade em Fortaleza. Inscreva-se.",
+    );
+    return () => {
+      document.title = previousTitle;
+      if (meta && previousDescription !== undefined) meta.content = previousDescription;
+    };
+  }, []);
+
   const update = <K extends keyof InscricaoFormState>(field: K, value: InscricaoFormState[K]) => {
-    setForm((current) => ({ ...current, [field]: value }));
+    setForm((current) => {
+      const next = { ...current, [field]: value };
+      if (field === "via_programa_social" && value === false) {
+        next.programas_sociais = [];
+        next.programa_outro = "";
+        next.declaracao_beneficiario = false;
+      }
+      if (field === "preferencia_contato" && value !== "Prefiro outro contato") next.contato_alternativo = "";
+      return next;
+    });
     setErrors((current) => ({ ...current, [field]: undefined }));
     setSubmitted(false);
     setSubmitError("");
@@ -167,7 +202,7 @@ const UmOlharDeCuidado = () => {
             <p className="eyebrow text-terracotta">Sobre a iniciativa</p>
             <h2 className="mt-3 font-serif text-4xl text-terracotta md:text-5xl">O que é o projeto?</h2>
             <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-cocoa/80 md:text-lg">
-              É uma iniciativa social que oferece atendimento gratuito de estética facial para quem não tem condições financeiras de pagar por esse cuidado.
+              É uma iniciativa social que oferece atendimento gratuito de estética facial para pessoas de famílias beneficiárias de programas sociais, como o Bolsa Família, e para mulheres em situação de vulnerabilidade, incluindo quem passou ou passa por violência doméstica.
             </p>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
@@ -203,12 +238,17 @@ const UmOlharDeCuidado = () => {
                 </article>
               ))}
             </div>
-            <div className="reveal mt-5 flex items-start gap-3 rounded-2xl border border-terracotta/20 bg-card/50 p-5">
-              <Info className="mt-0.5 h-5 w-5 shrink-0 text-terracotta" strokeWidth={1.4} />
-              <p className="text-sm leading-relaxed text-cocoa/80">
-                Para adolescentes, é necessária a autorização do responsável.
-              </p>
+            <div className="mt-5 space-y-3">
+              {avisos.map((aviso) => (
+                <div key={aviso} className="reveal flex items-start gap-3 rounded-2xl border border-terracotta/20 bg-card/50 p-5">
+                  <Info className="mt-0.5 h-5 w-5 shrink-0 text-terracotta" strokeWidth={1.4} />
+                  <p className="text-sm leading-relaxed text-cocoa/80">{aviso}</p>
+                </div>
+              ))}
             </div>
+            <p className="reveal mt-5 text-sm font-medium leading-relaxed text-terracotta">
+              Se você está em situação de violência, ligue 180 (Central de Atendimento à Mulher, gratuito, 24 horas). Em emergência, ligue 190.
+            </p>
           </div>
           <PhotoPlaceholder
             label="Uma foto de mulher adulta para esta seção"
@@ -294,6 +334,89 @@ const UmOlharDeCuidado = () => {
               </div>
             </div>
 
+            <fieldset className="rounded-2xl border border-terracotta/20 bg-project-beige/25 p-5">
+              <legend className="px-2 text-sm font-medium">Como você se encaixa no projeto? *</legend>
+              <div className="space-y-3">
+                <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
+                  <input type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-terracotta" checked={form.via_programa_social} onChange={(event) => update("via_programa_social", event.target.checked)} />
+                  <span>Minha família é beneficiária de programa social</span>
+                </label>
+                <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
+                  <input type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-terracotta" checked={form.via_vulnerabilidade} onChange={(event) => update("via_vulnerabilidade", event.target.checked)} />
+                  <span>Sou mulher em situação de vulnerabilidade, incluindo violência doméstica</span>
+                </label>
+              </div>
+              {errorText("via_programa_social")}
+            </fieldset>
+
+            {form.via_programa_social && (
+              <fieldset className="space-y-5 rounded-2xl border border-terracotta/20 bg-project-beige/40 p-5">
+                <legend className="px-2 font-serif text-xl text-terracotta">Programa social</legend>
+                <div>
+                  <p className="mb-3 text-sm font-medium">Qual programa? *</p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {programasSociais.map((programa) => (
+                      <label key={programa} className="flex cursor-pointer items-center gap-3 text-sm">
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 shrink-0 accent-terracotta"
+                          checked={form.programas_sociais.includes(programa)}
+                          onChange={(event) => {
+                            update("programas_sociais", event.target.checked
+                              ? [...form.programas_sociais, programa]
+                              : form.programas_sociais.filter((item) => item !== programa));
+                            if (!event.target.checked && programa === "Outro") update("programa_outro", "");
+                          }}
+                        />
+                        <span>{programa}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {errorText("programas_sociais")}
+                </div>
+                {form.programas_sociais.includes("Outro") && (
+                  <div>
+                    <label htmlFor="programa_outro" className="mb-2 block text-sm font-medium">Qual? *</label>
+                    <input id="programa_outro" className="project-input" maxLength={120} value={form.programa_outro} onChange={(event) => update("programa_outro", event.target.value)} />
+                    {errorText("programa_outro")}
+                  </div>
+                )}
+                <div>
+                  <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
+                    <input type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-terracotta" checked={form.declaracao_beneficiario} onChange={(event) => update("declaracao_beneficiario", event.target.checked)} />
+                    <span>Declaro que minha família é beneficiária do programa informado e que apresentarei comprovante no dia do atendimento.</span>
+                  </label>
+                  {errorText("declaracao_beneficiario")}
+                </div>
+              </fieldset>
+            )}
+
+            <fieldset className="rounded-2xl border border-terracotta/20 bg-project-beige/25 p-5">
+              <legend className="px-2 text-sm font-medium">Podemos enviar mensagem para o telefone informado? *</legend>
+              <div className="space-y-3">
+                {preferenciasContato.map((preferencia) => (
+                  <label key={preferencia} className="flex cursor-pointer items-center gap-3 text-sm">
+                    <input type="radio" name="preferencia_contato" className="h-4 w-4 accent-terracotta" checked={form.preferencia_contato === preferencia} onChange={() => update("preferencia_contato", preferencia)} />
+                    <span>{preferencia}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            {form.preferencia_contato === "Prefiro outro contato" && (
+              <div>
+                <label htmlFor="contato_alternativo" className="mb-2 block text-sm font-medium">Como prefere ser contatada? *</label>
+                <input id="contato_alternativo" className="project-input" maxLength={200} value={form.contato_alternativo} onChange={(event) => update("contato_alternativo", event.target.value)} />
+                {errorText("contato_alternativo")}
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="melhor_horario" className="mb-2 block text-sm font-medium">Melhor horário para contato <span className="font-normal text-cocoa/50">(opcional)</span></label>
+              <input id="melhor_horario" className="project-input" maxLength={120} placeholder="Ex.: dias úteis, depois das 14h" value={form.melhor_horario} onChange={(event) => update("melhor_horario", event.target.value)} />
+              {errorText("melhor_horario")}
+            </div>
+
             <div>
               <div className="mb-2 flex items-center justify-between gap-3">
                 <label htmlFor="motivo" className="block text-sm font-medium">Por que gostaria de participar? *</label>
@@ -349,6 +472,15 @@ const UmOlharDeCuidado = () => {
       </section>
 
       <Footer />
+
+      <button
+        type="button"
+        onClick={() => window.location.replace("https://www.google.com")}
+        className="fixed bottom-4 right-4 z-50 inline-flex items-center gap-2 rounded-full border border-terracotta/25 bg-card/95 px-4 py-2.5 text-xs font-medium text-cocoa shadow-[var(--shadow-soft)] backdrop-blur transition-colors hover:bg-project-beige focus:outline-none focus:ring-2 focus:ring-terracotta"
+        aria-label="Sair rápido desta página"
+      >
+        <LogOut className="h-4 w-4" /> Sair rápido
+      </button>
     </main>
   );
 };

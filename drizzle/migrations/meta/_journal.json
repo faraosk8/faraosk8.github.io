@@ -15,6 +15,13 @@
       "when": 1794155889538,
       "tag": "0001_create_olhar_cuidado_inscricoes",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794186531298,
+      "tag": "0002_add_olhar_cuidado_eligibility_contact",
+      "breakpoints": true
     }
   ]
 }

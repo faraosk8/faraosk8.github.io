@@ -2,6 +2,9 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { z } from "npm:zod@3.23.8";
 
+const programasSociais = ["Bolsa Família", "BPC", "Inscrita no CadÚnico", "Outro"] as const;
+const preferenciasContato = ["Sim", "Prefiro que liguem", "Prefiro outro contato"] as const;
+
 const BodySchema = z
   .object({
     nome: z.string().trim().min(3).max(120),
@@ -10,6 +13,14 @@ const BodySchema = z
     email: z.union([z.literal(""), z.string().trim().email().max(255)]),
     bairro: z.string().trim().min(2).max(100),
     cidade: z.string().trim().min(2).max(100),
+    via_programa_social: z.boolean(),
+    via_vulnerabilidade: z.boolean(),
+    programas_sociais: z.array(z.enum(programasSociais)).max(4),
+    programa_outro: z.string().trim().max(120),
+    declaracao_beneficiario: z.boolean(),
+    preferencia_contato: z.enum(preferenciasContato),
+    contato_alternativo: z.string().trim().max(200),
+    melhor_horario: z.string().trim().max(120),
     motivo: z.string().trim().min(1).max(600),
     nome_responsavel: z.string().trim().max(120),
     telefone_responsavel: z.string(),
@@ -19,15 +30,33 @@ const BodySchema = z
     website: z.string().max(200).optional(),
   })
   .superRefine((data, context) => {
-    if (data.idade >= 18) return;
-    if (data.nome_responsavel.length < 3) {
-      context.addIssue({ code: z.ZodIssueCode.custom, path: ["nome_responsavel"], message: "Responsável obrigatório" });
+    if (!data.via_programa_social && !data.via_vulnerabilidade) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["via_programa_social"], message: "Via de entrada obrigatória" });
     }
-    if (data.telefone_responsavel.replace(/\D/g, "").length !== 11) {
-      context.addIssue({ code: z.ZodIssueCode.custom, path: ["telefone_responsavel"], message: "Telefone do responsável obrigatório" });
+    if (data.via_programa_social) {
+      if (data.programas_sociais.length === 0) {
+        context.addIssue({ code: z.ZodIssueCode.custom, path: ["programas_sociais"], message: "Programa social obrigatório" });
+      }
+      if (data.programas_sociais.includes("Outro") && data.programa_outro.length < 2) {
+        context.addIssue({ code: z.ZodIssueCode.custom, path: ["programa_outro"], message: "Informe o programa" });
+      }
+      if (!data.declaracao_beneficiario) {
+        context.addIssue({ code: z.ZodIssueCode.custom, path: ["declaracao_beneficiario"], message: "Declaração obrigatória" });
+      }
     }
-    if (!data.autorizacao_responsavel) {
-      context.addIssue({ code: z.ZodIssueCode.custom, path: ["autorizacao_responsavel"], message: "Autorização obrigatória" });
+    if (data.preferencia_contato === "Prefiro outro contato" && data.contato_alternativo.length < 2) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["contato_alternativo"], message: "Contato alternativo obrigatório" });
+    }
+    if (data.idade < 18) {
+      if (data.nome_responsavel.length < 3) {
+        context.addIssue({ code: z.ZodIssueCode.custom, path: ["nome_responsavel"], message: "Responsável obrigatório" });
+      }
+      if (data.telefone_responsavel.replace(/\D/g, "").length !== 11) {
+        context.addIssue({ code: z.ZodIssueCode.custom, path: ["telefone_responsavel"], message: "Telefone do responsável obrigatório" });
+      }
+      if (!data.autorizacao_responsavel) {
+        context.addIssue({ code: z.ZodIssueCode.custom, path: ["autorizacao_responsavel"], message: "Autorização obrigatória" });
+      }
     }
   });
 
@@ -92,7 +121,13 @@ Deno.serve(async (req) => {
   const { sessao_id: _sessao, website: _website, ...inscricao } = parsed.data;
   const { data: saved, error: insertError } = await supabase
     .from("inscricoes_olhar_cuidado")
-    .insert({ ...inscricao, email: inscricao.email || null })
+    .insert({
+      ...inscricao,
+      email: inscricao.email || null,
+      programa_outro: inscricao.programa_outro || null,
+      contato_alternativo: inscricao.contato_alternativo || null,
+      melhor_horario: inscricao.melhor_horario || null,
+    })
     .select("id, created_at")
     .single();
 
@@ -120,6 +155,9 @@ Deno.serve(async (req) => {
       const detalheMenor = menor
         ? '<p style="margin:12px 0;color:#4E3B33"><strong>Menor de idade – com autorização do responsável</strong></p>'
         : "";
+      const alertaContato = inscricao.preferencia_contato !== "Sim"
+        ? '<p style="margin:16px 0;padding:12px;border:1px solid #A8664A;color:#4E3B33"><strong>Atenção: não enviar mensagem; ver forma de contato no painel.</strong></p>'
+        : "";
       const html = `
         <div style="font-family:Arial,sans-serif;max-width:560px;margin:auto;padding:28px;background:#F7F0E9;color:#4E3B33">
           <h1 style="color:#A8664A;font-size:26px">Nova inscrição recebida</h1>
@@ -129,7 +167,9 @@ Deno.serve(async (req) => {
           <p><strong>Cidade:</strong> ${escapeHtml(inscricao.cidade)}</p>
           <p><strong>Telefone:</strong> ${escapeHtml(inscricao.telefone)}</p>
           <p><strong>Data e hora:</strong> ${escapeHtml(dataHora)}</p>
+          <p><strong>Preferência de contato:</strong> ${escapeHtml(inscricao.preferencia_contato)}</p>
           ${detalheMenor}
+          ${alertaContato}
           <a href="https://fernandarabelo.com.br/admin/inscricoes" style="display:inline-block;margin-top:18px;padding:13px 22px;border-radius:24px;background:#A8664A;color:#ffffff;text-decoration:none">Ver no painel</a>
         </div>`;
 
