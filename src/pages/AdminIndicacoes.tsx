@@ -94,7 +94,9 @@ const AdminIndicacoes = () => {
   };
 
   const atualizacaoRapida = async (produto: ProdutoIndicado, campo: "ativo" | "destaque_home") => {
-    const { error } = await supabase.from("produtos_indicados").update({ [campo]: !produto[campo] }).eq("id", produto.id);
+    const { error } = campo === "ativo"
+      ? await supabase.from("produtos_indicados").update({ ativo: !produto.ativo }).eq("id", produto.id)
+      : await supabase.from("produtos_indicados").update({ destaque_home: !produto.destaque_home }).eq("id", produto.id);
     if (error) {
       toast.error("Não foi possível atualizar o produto.");
       return;

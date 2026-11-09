@@ -82,7 +82,12 @@ export function temFiltroAplicado(filtros: FiltrosIndicacoes) {
 }
 
 const normalizar = (valor: string) =>
-  valor.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
+  valor
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("pt-BR")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 
 export function filtrarProdutos(produtos: ProdutoIndicado[], filtros: FiltrosIndicacoes) {
   const termo = normalizar(filtros.busca.trim());
@@ -241,10 +246,10 @@ export function produtoParaFormulario(produto: ProdutoIndicado): ProdutoForm {
     nome: produto.nome,
     slug: produto.slug,
     imagem_url: produto.imagem_url,
-    loja: produto.loja,
+    loja: produto.loja as ProdutoForm["loja"],
     loja_outra_nome: produto.loja_outra_nome ?? "",
     link_afiliado: produto.link_afiliado,
-    categoria: produto.categoria,
+    categoria: produto.categoria as ProdutoForm["categoria"],
     necessidades: produto.necessidades as ProdutoForm["necessidades"],
     por_que_indico: produto.por_que_indico,
     preco: produto.preco?.toString() ?? "",
