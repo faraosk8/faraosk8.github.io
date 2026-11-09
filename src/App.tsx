@@ -29,6 +29,9 @@ const App = () => (
           <Route path="/admin" element={<Admin />} />
           <Route path="/um-olhar-de-cuidado" element={<UmOlharDeCuidado />} />
           <Route path="/admin/inscricoes" element={<AdminInscricoes />} />
+          <Route path="/indicacoes" element={<Indicacoes />} />
+          <Route path="/ir/:slug" element={<RedirectIndicacao />} />
+          <Route path="/admin/indicacoes" element={<AdminIndicacoes />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

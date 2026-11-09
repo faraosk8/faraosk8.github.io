@@ -29,6 +29,7 @@ const Index = () => {
       <Resultados />
       <Sobre />
       <BlogPreview />
+      <IndicacoesPreview />
       <ProjetoSocialBanner />
       <CtaFinal />
       <Footer />

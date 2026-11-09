@@ -64,8 +64,16 @@ const Footer = () => (
       </a>
 
       <Link
-        to="/um-olhar-de-cuidado"
+        to="/indicacoes"
         className="mt-6 inline-flex items-center gap-2 text-sm text-cream/75 transition-colors hover:text-gold"
+      >
+        <ShoppingBag className="h-4 w-4" />
+        Indicações da Fernanda
+      </Link>
+
+      <Link
+        to="/um-olhar-de-cuidado"
+        className="mt-4 inline-flex items-center gap-2 text-sm text-cream/75 transition-colors hover:text-gold"
       >
         <HeartHandshake className="h-4 w-4" />
         Projeto Social — Um Olhar de Cuidado
