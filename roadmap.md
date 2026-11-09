@@ -7,8 +7,8 @@
 - [x] Criar painel administrativo com filtros, detalhes, status e CSV
 - [x] Solicitar e configurar os dados necessários do Resend
 - [x] Testar inscrição pública, privacidade, painel e responsividade
-- [ ] Atualizar elegibilidade, avisos e saída rápida da página pública
-- [ ] Ampliar formulário, validação e armazenamento das novas preferências
-- [ ] Atualizar painel, filtros, contato e exportação
-- [ ] Restringir o aviso por e-mail e atualizar a descrição da página
-- [ ] Testar fluxo público, privacidade e painel
+- [x] Atualizar elegibilidade, avisos e saída rápida da página pública
+- [x] Ampliar formulário, validação e armazenamento das novas preferências
+- [x] Atualizar painel, filtros, contato e exportação
+- [x] Restringir o aviso por e-mail e atualizar a descrição da página
+- [x] Testar fluxo público, privacidade e painel
