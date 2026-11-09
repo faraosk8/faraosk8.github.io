@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, LogOut, Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, ClipboardList, ShoppingBag, LogOut, Pencil, Plus, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Navbar from "@/components/Navbar";
@@ -439,6 +439,28 @@ const Admin = () => {
   } else {
     content = (
       <div className="mx-auto mt-10 max-w-3xl">
+        <div className="mb-12 grid gap-4 sm:grid-cols-2">
+          <Link to="/admin/inscricoes" className="soft-card flex items-center gap-4 transition-colors hover:border-wine">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blush text-wine">
+              <ClipboardList className="h-5 w-5" />
+            </span>
+            <span className="flex-1">
+              <span className="block font-serif text-lg text-espresso">Inscrições</span>
+              <span className="block text-xs text-espresso/60">Projeto Um Olhar de Cuidado</span>
+            </span>
+            <ArrowRight className="h-4 w-4 text-wine" />
+          </Link>
+          <Link to="/admin/indicacoes" className="soft-card flex items-center gap-4 transition-colors hover:border-wine">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blush text-wine">
+              <ShoppingBag className="h-5 w-5" />
+            </span>
+            <span className="flex-1">
+              <span className="block font-serif text-lg text-espresso">Indicações</span>
+              <span className="block text-xs text-espresso/60">Produtos e relatório de cliques</span>
+            </span>
+            <ArrowRight className="h-4 w-4 text-wine" />
+          </Link>
+        </div>
         <div className="flex flex-wrap items-center justify-between gap-4">
           <h2 className="font-serif text-2xl text-espresso">Meus artigos</h2>
           <div className="flex gap-3">
@@ -508,7 +530,7 @@ const Admin = () => {
             <ArrowLeft className="h-4 w-4" /> Voltar para o início
           </Link>
           <h1 className="mt-8 text-center font-serif text-3xl text-espresso md:text-4xl">
-            Painel do blog
+            Painel administrativo
           </h1>
           {content}
         </div>
