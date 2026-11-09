@@ -88,7 +88,8 @@ const Admin = () => {
     if (isAdmin) loadPosts();
   }, [isAdmin]);
 
-  const [mode, setMode] = useState<"entrar" | "criar">("entrar");
+  const [mode, setMode] = useState<"entrar" | "criar" | "recuperar">("entrar");
+  const [resetSent, setResetSent] = useState(false);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -132,6 +133,27 @@ const Admin = () => {
       toast.success("Conta criada! Confirme o e-mail que você recebeu e depois entre aqui.");
       setMode("entrar");
     }
+  };
+
+  const handleResetRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError("");
+    setResetSent(false);
+    setAuthLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setAuthLoading(false);
+    if (error) {
+      const message = error.code === "over_email_send_rate_limit"
+        ? "Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente novamente."
+        : "Não foi possível enviar o link agora. Tente novamente.";
+      setAuthError(message);
+      toast.error(message);
+      return;
+    }
+    setResetSent(true);
+    toast.success("Se houver uma conta com esse e-mail, enviaremos um link para redefinir a senha.");
   };
 
   const handleSignOut = async () => {
@@ -221,32 +243,49 @@ const Admin = () => {
   if (!user) {
     content = (
       <form
-        onSubmit={mode === "entrar" ? handleSignIn : handleSignUp}
+        onSubmit={
+          mode === "entrar"
+            ? handleSignIn
+            : mode === "criar"
+              ? handleSignUp
+              : handleResetRequest
+        }
         className="soft-card mx-auto mt-10 flex w-full max-w-sm flex-col gap-4"
       >
         <h2 className="text-center font-serif text-2xl text-espresso">
-          {mode === "entrar" ? "Entrar" : "Criar conta"}
+          {mode === "entrar" ? "Entrar" : mode === "criar" ? "Criar conta" : "Recuperar senha"}
         </h2>
+        {mode === "recuperar" && (
+          <p className="text-center text-sm leading-relaxed text-espresso/70">
+            Informe o e-mail da sua conta para receber um link de redefinição.
+          </p>
+        )}
         <input
           type="email"
           required
+          autoComplete="email"
           placeholder="Seu e-mail"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={inputClass}
-        />
-        <input
-          type="password"
-          required
-          minLength={mode === "criar" ? 8 : 6}
-          placeholder={mode === "entrar" ? "Sua senha" : "Crie uma senha forte (mín. 8 caracteres)"}
-          value={password}
           onChange={(e) => {
-            setPassword(e.target.value);
-            setAuthError("");
+            setEmail(e.target.value);
+            setResetSent(false);
           }}
           className={inputClass}
         />
+        {mode !== "recuperar" && (
+          <input
+            type="password"
+            required
+            minLength={mode === "criar" ? 8 : 6}
+            placeholder={mode === "entrar" ? "Sua senha" : "Crie uma senha forte (mín. 8 caracteres)"}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setAuthError("");
+            }}
+            className={inputClass}
+          />
+        )}
         {mode === "criar" && (
           <p className="text-xs leading-relaxed text-espresso/60">
             Evite nomes, datas, sequências e senhas já usadas. Combine letras maiúsculas e
@@ -258,21 +297,50 @@ const Admin = () => {
             {authError}
           </p>
         )}
+        {mode === "recuperar" && resetSent && (
+          <p role="status" className="text-sm leading-relaxed text-espresso/70">
+            Se houver uma conta com esse e-mail, enviaremos um link para redefinir a senha.
+            Verifique também a pasta de spam.
+          </p>
+        )}
         <button type="submit" disabled={authLoading} className="btn-wine w-full">
           {authLoading
             ? "Aguarde…"
             : mode === "entrar"
               ? "Entrar"
-              : "Criar conta"}
+              : mode === "criar"
+                ? "Criar conta"
+                : "Enviar link de recuperação"}
         </button>
+        {mode === "entrar" && (
+          <button
+            type="button"
+            onClick={() => {
+              setMode("recuperar");
+              setAuthError("");
+              setResetSent(false);
+            }}
+            className="text-sm text-espresso/60 transition-colors hover:text-wine"
+          >
+            Esqueci minha senha
+          </button>
+        )}
         <button
           type="button"
-          onClick={() => setMode(mode === "entrar" ? "criar" : "entrar")}
+          onClick={() => {
+            setMode(
+              mode === "recuperar" ? "entrar" : mode === "entrar" ? "criar" : "entrar"
+            );
+            setAuthError("");
+            setResetSent(false);
+          }}
           className="text-sm text-espresso/60 transition-colors hover:text-wine"
         >
-          {mode === "entrar"
-            ? "Primeira vez? Criar minha conta"
-            : "Já tenho conta — entrar"}
+          {mode === "recuperar"
+            ? "Voltar para entrar"
+            : mode === "entrar"
+              ? "Primeira vez? Criar minha conta"
+              : "Já tenho conta — entrar"}
         </button>
       </form>
     );
