@@ -38,7 +38,14 @@ const ResetPassword = () => {
       setStatus("invalido");
     } else {
       supabase.auth.getSession().then(({ data: { session } }) => {
-        if (active && session) setStatus("pronta");
+        if (
+          active &&
+          session &&
+          recoveryAccessToken &&
+          session.access_token === recoveryAccessToken
+        ) {
+          setStatus("pronta");
+        }
       });
     }
 
