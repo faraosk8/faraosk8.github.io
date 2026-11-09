@@ -20,48 +20,72 @@ export type Database = {
           bairro: string
           cidade: string
           consentimento_lgpd: boolean
+          contato_alternativo: string | null
           created_at: string
+          declaracao_beneficiario: boolean
           email: string | null
           id: string
           idade: number
+          melhor_horario: string | null
           motivo: string
           nome: string
           nome_responsavel: string | null
+          preferencia_contato: string | null
+          programa_outro: string | null
+          programas_sociais: string[]
           status: string
           telefone: string
           telefone_responsavel: string | null
+          via_programa_social: boolean
+          via_vulnerabilidade: boolean
         }
         Insert: {
           autorizacao_responsavel?: boolean
           bairro: string
           cidade: string
           consentimento_lgpd: boolean
+          contato_alternativo?: string | null
           created_at?: string
+          declaracao_beneficiario?: boolean
           email?: string | null
           id?: string
           idade: number
+          melhor_horario?: string | null
           motivo: string
           nome: string
           nome_responsavel?: string | null
+          preferencia_contato?: string | null
+          programa_outro?: string | null
+          programas_sociais?: string[]
           status?: string
           telefone: string
           telefone_responsavel?: string | null
+          via_programa_social?: boolean
+          via_vulnerabilidade?: boolean
         }
         Update: {
           autorizacao_responsavel?: boolean
           bairro?: string
           cidade?: string
           consentimento_lgpd?: boolean
+          contato_alternativo?: string | null
           created_at?: string
+          declaracao_beneficiario?: boolean
           email?: string | null
           id?: string
           idade?: number
+          melhor_horario?: string | null
           motivo?: string
           nome?: string
           nome_responsavel?: string | null
+          preferencia_contato?: string | null
+          programa_outro?: string | null
+          programas_sociais?: string[]
           status?: string
           telefone?: string
           telefone_responsavel?: string | null
+          via_programa_social?: boolean
+          via_vulnerabilidade?: boolean
         }
         Relationships: []
       }
